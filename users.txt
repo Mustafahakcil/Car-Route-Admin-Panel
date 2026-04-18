@@ -1,0 +1,2 @@
+Kullanıcı Adı: admin
+Şifre: 1234
