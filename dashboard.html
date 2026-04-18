@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Karakter destegi -->
+    <meta charset="UTF-8">
+
+    <!-- Mobil uyumluluk -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Sayfa basligi -->
+    <title>Car Route Admin Panel</title>
+
+    <!-- CSS dosyasi -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Ikon kutuphanesi -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ===================================== -->
+    <!-- DASHBOARD PAGE -->
+    <!-- ===================================== -->
+    <div class="dashboard-page">
+
+        <!-- ===================================== -->
+        <!-- TOP BAR -->
+        <!-- ===================================== -->
+        <div class="top-bar">
+            <div class="top-left">
+                <h1>Car Route Admin Panel</h1>
+                <p>Management Dashboard</p>
+            </div>
+        </div>
+
+        <!-- ===================================== -->
+        <!-- ACTION TOOLBAR -->
+        <!-- ===================================== -->
+        <div class="table-top-actions">
+
+            <!-- Sol: Yeni Kayit -->
+            <button id="openModalButton" class="add-button">
+                <i class="fa-solid fa-plus"></i>
+                Yeni Kayıt
+            </button>
+
+            <!-- Orta: Arama -->
+            <div class="search-box">
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="İsim, plaka, araç veya rota ara..."
+                >
+
+                <button id="searchButton" type="button">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+
+            <!-- Sag: Islem butonlari -->
+            <div class="action-buttons">
+                <button id="editSelectedButton" class="icon-btn edit-btn" title="Duzenle">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
+
+                <button id="deleteSelectedButton" class="icon-btn delete-btn" title="Sil">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- ===================================== -->
+        <!-- TABLE SECTION -->
+        <!-- ===================================== -->
+        <div class="table-section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Isim</th>
+                        <th>Soy Isim</th>
+                        <th>Arac</th>
+                        <th>Plaka</th>
+                        <th>Belgeler</th>
+                        <th>Rota</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tableBody">
+                    <tr>
+                        <td colspan="7" class="empty-row">No records yet.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ===================================== -->
+        <!-- PAGINATION -->
+        <!-- ===================================== -->
+        <div class="pagination-area">
+            <button type="button">Previous</button>
+            <span>Page 1 / 1</span>
+            <button type="button">Next</button>
+        </div>
+
+    </div>
+
+    <!-- ===================================== -->
+    <!-- ADD / EDIT MODAL -->
+    <!-- ===================================== -->
+    <div id="addModal" class="modal-overlay">
+        <div class="modal-box">
+            <h2 id="modalTitle">Yeni Kayıt</h2>
+
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" placeholder="Enter first name">
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" placeholder="Enter last name">
+            </div>
+
+            <div class="form-group">
+                <label for="vehicle">Vehicle</label>
+                <input type="text" id="vehicle" placeholder="Enter vehicle">
+            </div>
+
+            <div class="form-group">
+                <label for="plate">Plate</label>
+                <input type="text" id="plate" placeholder="Enter plate">
+            </div>
+
+            <div class="form-group">
+                <label for="route">Route</label>
+                <input type="text" id="route" placeholder="Enter route">
+            </div>
+
+            <div class="modal-buttons">
+                <button id="saveRecordButton" class="save-modal-btn">Kayıt Et</button>
+                <button id="closeModalButton" class="close-modal-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================== -->
+    <!-- DELETE CONFIRM MODAL -->
+    <!-- ===================================== -->
+    <div id="deleteModal" class="modal-overlay">
+        <div class="modal-box">
+            <h2>Delete Record</h2>
+            <p>Are you sure you want to delete this record?</p>
+
+            <div class="modal-buttons">
+                <button id="confirmDeleteButton" class="delete-only-btn">Delete</button>
+                <button id="cancelDeleteButton" class="close-modal-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================== -->
+    <!-- DOCUMENT MODAL -->
+    <!-- ===================================== -->
+    <div id="documentModal" class="modal-overlay">
+        <div class="modal-box large-modal-box">
+            <h2>Belge Paneli</h2>
+
+            <div class="form-group">
+                <label for="documentInput">Yeni Belge Yukle</label>
+                <input type="file" id="documentInput" accept=".pdf,.jpg,.jpeg,.png,.rar">
+            </div>
+
+            <div class="modal-buttons top-document-buttons">
+                <button id="saveDocumentButton" class="save-modal-btn">Belge Ekle</button>
+                <button id="closeDocumentModalButton" class="close-modal-btn">Close</button>
+            </div>
+
+            <div class="document-list-section">
+                <h3>Yuklu Belgeler</h3>
+
+                <div id="documentListArea" class="document-list-area">
+                    <p>Henüz belge yok.</p>
+                </div>
+            </div>
+
+            <div class="document-preview-section">
+                <h3>Belge Önizleme</h3>
+
+                <div id="documentPreviewArea" class="document-preview-area">
+                    <p>Görüntülemek için listeden bir belge seç.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================== -->
+    <!-- MAP MODAL -->
+    <!-- ===================================== -->
+    <div id="mapModal" class="modal-overlay">
+        <div class="modal-box large-modal-box">
+            <h2>Rota Haritası</h2>
+
+            <div class="route-info-box">
+                <strong>Seçili Rota:</strong>
+                <span id="selectedRouteText">Rota bilgisi yok</span>
+            </div>
+
+            <div class="map-frame-wrapper">
+                <iframe
+                    id="routeMapFrame"
+                    src=""
+                    loading="lazy"
+                    allowfullscreen
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+
+            <div class="modal-buttons">
+                <button id="closeMapModalButton" class="close-modal-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
